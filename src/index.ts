@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import session from "express-session";
 import passport from "passport";
+import { AppDataSource } from "./database";
 import routes from "./routes";
 import "./strategies";
 
@@ -24,6 +25,7 @@ async function main() {
   app.use(passport.session());
 
   try {
+    await AppDataSource.initialize();
     app.listen(PORT, () =>
       console.log(`Listening to requests on PORT ${PORT}`)
     );
