@@ -9,6 +9,7 @@ import routes from './routes';
 async function main() {
   const app = express();
   const PORT = process.env.PORT || 3001;
+  app.use(express.json());
   app.use('/api', routes);
   app.use(
     session({
