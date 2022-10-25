@@ -8,5 +8,5 @@ export const findUser = (
   options?: FindUserOptions,
 ): Promise<User | null> => {
   const select = getUserSelections(options?.selectAll);
-  return UserRepository.findOne({ where: { username: params.username }, select });
+  return UserRepository.findOne({ where: params, select });
 };

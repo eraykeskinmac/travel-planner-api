@@ -1,16 +1,18 @@
+import { TypeormStore } from 'connect-typeorm';
 import 'dotenv/config';
 import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import 'reflect-metadata';
 import { AppDataSource } from './database';
+import { SessionRepository } from './database/repositories';
 import routes from './routes';
 
 async function main() {
   const app = express();
   const PORT = process.env.PORT || 3001;
   app.use(express.json());
-  app.use('/api', routes);
+
   app.use(
     session({
       name: 'TRAVEL_APP_SESSION_ID',
@@ -20,10 +22,12 @@ async function main() {
       cookie: {
         maxAge: 3600000 * 24,
       },
+      store: new TypeormStore().connect(SessionRepository),
     }),
   );
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use('/api', routes);
 
   try {
     await AppDataSource.initialize();

@@ -1,7 +1,20 @@
 import passport from 'passport';
 import { Strategy } from 'passport-local';
 import { findUser } from './../services/user';
-import { validatePassword } from './../utils/helpers/index';
+import { validatePassword } from './../utils/helpers/';
+
+passport.serializeUser((user: any, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id: number, done) => {
+  try {
+    const user = await findUser({ id });
+    return user ? done(null, user) : done(null, null);
+  } catch (err) {
+    return done(err, null);
+  }
+});
 
 passport.use(
   new Strategy(async (username, password, done) => {
