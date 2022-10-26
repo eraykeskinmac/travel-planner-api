@@ -1,4 +1,5 @@
 import { TypeormStore } from 'connect-typeorm';
+import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
 import session from 'express-session';
@@ -12,7 +13,7 @@ async function main() {
   const app = express();
   const PORT = process.env.PORT || 3001;
   app.use(express.json());
-
+  app.use(cors({ origin: ['http://localhost:5173'], credentials: true }));
   app.use(
     session({
       name: 'TRAVEL_APP_SESSION_ID',
