@@ -14,3 +14,15 @@ export const registerUserSchema = yup.object({
       .max(32),
   }),
 });
+
+export const createPlanSchema = yup.object({
+  body: yup.object({
+    title: yup
+      .string()
+      .required()
+      .min(3)
+      .max(64),
+    date: yup.string().required(),
+    description: yup.string().required(),
+  }),
+});
