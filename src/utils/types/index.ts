@@ -1,4 +1,3 @@
-import { Request } from "express";
 import { User } from "../../database/entities";
 
 export type CreateUserParams = {
@@ -15,3 +14,9 @@ export type FindUserOptions = Partial<{
   selectAll: boolean;
 }>;
 
+export type CreatePlanParams = {
+  title: string;
+  description: string;
+  date: string;
+  user: User
+};
