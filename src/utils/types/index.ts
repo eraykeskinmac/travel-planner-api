@@ -1,4 +1,4 @@
-import { User } from "../../database/entities";
+import { User } from '../../database/entities';
 
 export type CreateUserParams = {
   username: string;
@@ -18,5 +18,9 @@ export type CreatePlanParams = {
   title: string;
   description: string;
   date: string;
-  user: User
+  user: User;
+};
+
+export type GetPlansParams = {
+  userId: number;
 };
