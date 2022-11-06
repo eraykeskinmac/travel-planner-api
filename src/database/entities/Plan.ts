@@ -1,4 +1,12 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Event } from './Event';
 import { User } from './User';
 
@@ -20,9 +28,9 @@ export class Plan {
 
   @ManyToOne(
     () => User,
-    user => user.plans,
+    user => user.createdPlans,
   )
-  user: User;
+  creator: User;
 
   @OneToMany(
     () => Event,
@@ -30,4 +38,10 @@ export class Plan {
   )
   @JoinColumn()
   events: Event[];
+
+  @ManyToMany(
+    () => User,
+    user => user.plans,
+  )
+  users: User[];
 }

@@ -16,7 +16,7 @@ passport.deserializeUser(async (id: number, done) => {
   }
 });
 
-passport.use('local',
+passport.use(
   new Strategy(async (username, password, done) => {
     console.log('Inside Passport');
     console.log(username, password);
@@ -25,9 +25,7 @@ passport.use('local',
       if (!user) return done(null, null);
       console.log(user);
       const validPassword = await validatePassword(password, user.password);
-      if (validPassword !== null) {
-        throw new Error('Invalid Credentials');
-      }
+      if (validPassword !== null) throw new Error('Invalid Credentials');
       return done(null, user);
     } catch (err) {
       return done(err, null);

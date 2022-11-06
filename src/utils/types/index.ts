@@ -1,3 +1,4 @@
+import { FindOptionsRelationByString, FindOptionsRelations } from 'typeorm';
 import { User } from '../../database/entities';
 
 export type CreateUserParams = {
@@ -12,13 +13,14 @@ export type FindUserParams = Partial<{
 
 export type FindUserOptions = Partial<{
   selectAll: boolean;
+  relations: FindOptionsRelationByString | FindOptionsRelations<User>;
 }>;
 
 export type CreatePlanParams = {
   title: string;
   description: string;
   date: string;
-  user: User;
+  creator: User;
 };
 
 export type GetPlansParams = {

@@ -1,5 +1,13 @@
 import { Exclude } from 'class-transformer';
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn
+} from 'typeorm';
 import { Plan } from './Plan';
 
 @Entity({
@@ -18,8 +26,12 @@ export class User {
 
   @OneToMany(
     () => Plan,
-    plan => plan.user,
+    plan => plan.creator,
   )
   @JoinColumn()
+  createdPlans: Plan[];
+
+  @ManyToMany(() => Plan, (plan) => plan.users)
+  @JoinTable()
   plans: Plan[];
 }
